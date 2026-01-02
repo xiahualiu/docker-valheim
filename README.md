@@ -93,9 +93,10 @@ The following ports are exposed and should be forwarded:
 
 The server data is stored in the `./valheim-data` directory on your host machine, which is bind-mounted to `/home/steam/valheim-server` in the container. This includes:
 
-- Server binaries
 - World saves
 - Configuration files
+
+The server binaries are installed to `/home/steam/.steam/valheim` inside the container and are not part of the mounted volume.
 
 **Important:** The first run will download the Valheim dedicated server files (~1GB), which may take several minutes.
 

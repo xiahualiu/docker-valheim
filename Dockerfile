@@ -30,7 +30,7 @@ RUN if id -u ubuntu >/dev/null 2>&1 && [ $(id -u ubuntu) -eq ${STEAM_UID} ]; the
 RUN useradd -m -u ${STEAM_UID} -s /bin/bash steam
 
 # Set up directories
-RUN mkdir -p /home/steam/steamcmd /home/steam/valheim-server /home/steam/.steam/sdk64 && \
+RUN mkdir -p /home/steam/steamcmd /home/steam/.steam/valheim /home/steam/valheim-server /home/steam/.steam/sdk64 && \
     chown -R steam:steam /home/steam
 
 # Switch to steam user
@@ -40,18 +40,9 @@ WORKDIR /home/steam
 # Download and install SteamCMD
 RUN curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf - -C /home/steam/steamcmd
 
-# Create installation script
-RUN echo '#!/bin/bash' > /home/steam/install_valheim.sh && \
-    echo '/home/steam/steamcmd/steamcmd.sh +force_install_dir /home/steam/valheim-server +login anonymous +app_update 896660 validate +quit' >> /home/steam/install_valheim.sh && \
-    chmod +x /home/steam/install_valheim.sh
-
-# Create startup script
-RUN echo '#!/bin/bash' > /home/steam/start_valheim.sh && \
-    echo 'cd /home/steam/valheim-server' >> /home/steam/start_valheim.sh && \
-    echo 'export SteamAppId=892970' >> /home/steam/start_valheim.sh && \
-    echo 'export LD_LIBRARY_PATH=./linux64:$LD_LIBRARY_PATH' >> /home/steam/start_valheim.sh && \
-    echo './valheim_server.x86_64 -name "${SERVER_NAME:-ValheimServer}" -port ${SERVER_PORT:-2456} -world "${WORLD_NAME:-Dedicated}" -password "${SERVER_PASSWORD:-secret}" -public ${SERVER_PUBLIC:-0}' >> /home/steam/start_valheim.sh && \
-    chmod +x /home/steam/start_valheim.sh
+# Copy entrypoint script
+COPY --chown=steam:steam entrypoint.sh /home/steam/entrypoint.sh
+RUN chmod +x /home/steam/entrypoint.sh
 
 # Expose Valheim server ports
 EXPOSE 2456/udp
@@ -69,4 +60,4 @@ ENV SERVER_PASSWORD="secret"
 ENV SERVER_PUBLIC=0
 
 # Entry point: install and start server
-CMD ["/bin/bash", "-c", "/home/steam/install_valheim.sh && /home/steam/start_valheim.sh"]
+CMD ["/home/steam/entrypoint.sh"]
