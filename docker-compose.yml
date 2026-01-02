@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  valheim:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        STEAM_UID: 1000
+    container_name: valheim-server
+    image: valheim-dedicated-server:latest
+    restart: unless-stopped
+    ports:
+      - "2456:2456/udp"
+      - "2457:2457/udp"
+      - "2458:2458/udp"
+    volumes:
+      - ./valheim-data:/home/steam/valheim-server
+    environment:
+      - SERVER_NAME=ValheimServer
+      - SERVER_PORT=2456
+      - WORLD_NAME=Dedicated
+      - SERVER_PASSWORD=secret
+      - SERVER_PUBLIC=0
+    tty: true
+    stdin_open: true

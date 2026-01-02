@@ -1,0 +1,16 @@
+# Valheim server data
+valheim-data/
+
+# Docker volumes
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
