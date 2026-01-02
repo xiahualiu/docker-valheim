@@ -48,7 +48,9 @@ RUN echo '#!/bin/bash' > /home/steam/start_valheim.sh && \
     chmod +x /home/steam/start_valheim.sh
 
 # Expose Valheim server ports
-EXPOSE 2456-2458/udp
+EXPOSE 2456/udp
+EXPOSE 2457/udp
+EXPOSE 2458/udp
 
 # Set working directory to valheim-server
 WORKDIR /home/steam/valheim-server

@@ -29,17 +29,17 @@ A Docker container project for running a Valheim dedicated server based on Ubunt
 
 3. Start the server:
    ```bash
-   docker-compose up -d
+   docker compose up -d
    ```
 
 4. View server logs:
    ```bash
-   docker-compose logs -f valheim
+   docker compose logs -f valheim
    ```
 
 5. Stop the server:
    ```bash
-   docker-compose down
+   docker compose down
    ```
 
 ## Configuration
@@ -127,17 +127,9 @@ docker run -d \
 To update the Valheim server to the latest version:
 
 ```bash
-docker-compose down
-docker-compose pull
-docker-compose up -d
-```
-
-Or if you built the image locally:
-
-```bash
-docker-compose down
-docker-compose build --no-cache
-docker-compose up -d
+docker compose down
+docker compose build --no-cache
+docker compose up -d
 ```
 
 ## Troubleshooting
@@ -155,7 +147,7 @@ docker-compose up -d
 
 ### Server crashes or won't start
 
-- Check logs: `docker-compose logs valheim`
+- Check logs: `docker compose logs valheim`
 - Ensure you have enough disk space
 - Verify all required ports are available
 
