@@ -91,12 +91,11 @@ The following ports are exposed and should be forwarded:
 
 ## Data Persistence
 
-The server data is stored in the `./valheim-data` directory on your host machine, which is bind-mounted to `/home/steam/valheim-server` in the container. This includes:
+The server data is stored in the `./valheim-data` directory on your host machine, which is bind-mounted to `/home/steam/.steam/valheim` in the container. This includes:
 
 - World saves
 - Configuration files
-
-The server binaries are installed to `/home/steam/.steam/valheim` inside the container and are not part of the mounted volume.
+- Server binaries
 
 **Important:** The first run will download the Valheim dedicated server files (~1GB), which may take several minutes.
 
@@ -124,7 +123,7 @@ docker run -d \
   -p 2456:2456/udp \
   -p 2457:2457/udp \
   -p 2458:2458/udp \
-  -v $(pwd)/valheim-data:/home/steam/valheim-server \
+  -v $(pwd)/valheim-data:/home/steam/.steam/valheim \
   -e SERVER_NAME="My Valheim Server" \
   -e SERVER_PASSWORD="mypassword" \
   -e WORLD_NAME="MyWorld" \

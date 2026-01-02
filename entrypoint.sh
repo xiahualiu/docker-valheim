@@ -25,5 +25,4 @@ exec ./valheim_server.x86_64 \
     -port ${SERVER_PORT:-2456} \
     -world "${WORLD_NAME:-Dedicated}" \
     -password "${SERVER_PASSWORD:-secret}" \
-    -public ${SERVER_PUBLIC:-0} \
-    -savedir /home/steam/valheim-server
+    -public ${SERVER_PUBLIC:-0}
