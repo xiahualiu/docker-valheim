@@ -15,7 +15,7 @@ services:
       - "2457:2457/udp"
       - "2458:2458/udp"
     volumes:
-      - ./valheim-data:/home/steam/valheim-server
+      - ./valheim-data:/home/steam/.steam/valheim
     environment:
       - SERVER_NAME=ValheimServer
       - SERVER_PORT=2456
