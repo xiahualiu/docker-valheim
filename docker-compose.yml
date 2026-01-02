@@ -15,7 +15,7 @@ services:
       - "2457:2457/udp"
       - "2458:2458/udp"
     volumes:
-      - ./valheim-data:/home/steam/.steam/valheim
+      - ./valheim-data:/home/steam/.config/unity3d/IronGate/Valheim
     environment:
       - SERVER_NAME=ValheimServer
       - SERVER_PORT=2456
