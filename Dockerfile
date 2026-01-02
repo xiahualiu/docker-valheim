@@ -30,7 +30,7 @@ RUN if id -u ubuntu >/dev/null 2>&1 && [ $(id -u ubuntu) -eq ${STEAM_UID} ]; the
 RUN useradd -m -u ${STEAM_UID} -s /bin/bash steam
 
 # Set up directories
-RUN mkdir -p /home/steam/steamcmd /home/steam/.steam/valheim /home/steam/.steam/sdk64 && \
+RUN mkdir -p /home/steam/steamcmd /home/steam/valheim-server /home/steam/.config/unity3d/IronGate/Valheim && \
     chown -R steam:steam /home/steam
 
 # Switch to steam user
@@ -49,8 +49,8 @@ EXPOSE 2456/udp
 EXPOSE 2457/udp
 EXPOSE 2458/udp
 
-# Set working directory to valheim installation
-WORKDIR /home/steam/.steam/valheim
+# Set working directory
+WORKDIR /home/steam
 
 # Default environment variables
 ENV SERVER_NAME="ValheimServer"
