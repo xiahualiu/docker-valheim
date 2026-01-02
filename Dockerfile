@@ -20,6 +20,12 @@ ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US:en
 ENV LC_ALL=en_US.UTF-8
 
+# Remove default ubuntu user if it exists and has the same UID as STEAM_UID
+# This is necessary because Ubuntu 24.04 comes with a default 'ubuntu' user with UID 1000
+RUN if id -u ubuntu >/dev/null 2>&1 && [ $(id -u ubuntu) -eq ${STEAM_UID} ]; then \
+        userdel -r ubuntu; \
+    fi
+
 # Create steam user with specified UID
 RUN useradd -m -u ${STEAM_UID} -s /bin/bash steam
 
