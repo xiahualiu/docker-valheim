@@ -56,6 +56,13 @@ Configure your Valheim server by setting these environment variables in `docker-
 | `SERVER_PASSWORD` | Server password (minimum 5 characters) | `secret` |
 | `SERVER_PUBLIC` | Set to 1 to list server publicly, 0 for private | `0` |
 
+**Important Server Configuration Notes:**
+- `SERVER_PASSWORD` must be at least 5 characters long or the server will fail to start
+- `SERVER_NAME` can contain spaces and special characters, but keep it reasonable for display purposes
+- `WORLD_NAME` determines the save file name - changing this will create a new world
+- When `SERVER_PUBLIC` is set to 1, your server will appear in the public server list (requires proper port forwarding)
+- Valheim uses three consecutive UDP ports starting from `SERVER_PORT` (default: 2456, 2457, 2458)
+
 ### Build Arguments
 
 | Argument | Description | Default Value |
@@ -69,6 +76,8 @@ build:
   args:
     STEAM_UID: 1001
 ```
+
+**Note on Ubuntu 24.04 Compatibility:** Ubuntu 24.04 includes a default `ubuntu` user with UID 1000. The Dockerfile automatically removes this default user if it conflicts with the `STEAM_UID` you specify. This ensures the steam user can be created with your desired UID without conflicts.
 
 ### Ports
 
