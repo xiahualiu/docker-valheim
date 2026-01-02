@@ -2,14 +2,21 @@
 set -e
 
 echo "Installing/Updating Valheim Server..."
-/home/steam/steamcmd/steamcmd.sh \
+if ! /home/steam/steamcmd/steamcmd.sh \
     +force_install_dir /home/steam/.steam/valheim \
     +login anonymous \
     +app_update 896660 validate \
-    +quit
+    +quit; then
+    echo "ERROR: Failed to install/update Valheim server"
+    exit 1
+fi
 
 echo "Starting Valheim Server..."
-cd /home/steam/.steam/valheim
+if ! cd /home/steam/.steam/valheim; then
+    echo "ERROR: Valheim server directory not found at /home/steam/.steam/valheim"
+    exit 1
+fi
+
 export SteamAppId=892970
 export LD_LIBRARY_PATH=./linux64:$LD_LIBRARY_PATH
 
