@@ -1,7 +1,7 @@
 FROM ubuntu:24.04
 
 # Set ARG for steam user UID and export to ENV
-ARG STEAM_UID=1000
+ARG STEAM_UID=1001
 ENV STEAM_UID=${STEAM_UID}
 
 # Install dependencies

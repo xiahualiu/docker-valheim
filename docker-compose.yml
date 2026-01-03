@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        STEAM_UID: 1000
+        STEAM_UID: 1001
     container_name: valheim-server
     image: valheim-dedicated-server:latest
     restart: unless-stopped
@@ -16,10 +16,11 @@ services:
       - "2458:2458/udp"
     volumes:
       - ./valheim-data:/home/steam/.steam/valheim
+      - ./valheim-config:/home/steam/.config/unity3d/IronGate/Valheim
     environment:
       - SERVER_NAME=ValheimServer
       - SERVER_PORT=2456
-      - WORLD_NAME=Dedicated
+      - WORLD_NAME=MINISHIJIE
       - SERVER_PASSWORD=secret
       - SERVER_PUBLIC=0
     tty: true
